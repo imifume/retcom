@@ -1,0 +1,9 @@
+bump2version
+fbs
+PySide2==5.12.0
+Pillow
+opencv-python-headless
+numpy
+requests
+fonttools
+rarfile
