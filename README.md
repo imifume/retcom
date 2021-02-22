@@ -13,7 +13,7 @@
 - Easily export and share text boxes and text bubbles with others.
 - Immediately export cleaned and typeset pages.
 
-Sounds too good to be true? Check out this demo: _to be added_.
+Sounds too good to be true? Check out this demo: ***to be added***.
 
 ## Installation
 
