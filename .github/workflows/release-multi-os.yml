@@ -49,8 +49,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/retcom_app.deb
-          asset_name: retcom_app.deb
+          file: target/RetCom.deb
+          asset_name: RetCom.deb
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -79,8 +79,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/retcom_app.dmg
-          asset_name: retcom_app.dmg
+          file: target/RetCom.dmg
+          asset_name: RetCom.dmg
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -109,7 +109,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/retcom_appSetup.exe
-          asset_name: retcom_appSetup.exe
+          file: target/RetComSetup.exe
+          asset_name: RetComSetup.exe
           tag: ${{ github.ref }}
           overwrite: true
