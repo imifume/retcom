@@ -126,7 +126,7 @@ We call text bubbles 'ellipsoids' in RetCom, to not confuse them with textboxes.
 
 We follow the following convention:
 ```
-<content> <size> <family> <x> <y> <w> <h>
+<content> <size> <family> <color> <x> <y> <w> <h>
 ```
 
 and we use `.ell`. For details on serialization, check the source code.

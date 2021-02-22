@@ -643,7 +643,7 @@ class RetCom(QtWidgets.QMainWindow):
 
         for info in txtell.split('::|--|::'):
             info_l = info.split('::||::')
-            txt, size, family, x, y, w, h = info_l[0], int(info_l[1]), float(info_l[2]), float(info_l[3]), float(info_l[4]) , float(info_l[5])
+            txt, size, family, color, x, y, w, h = info_l[0], int(info_l[1]), str(info_l[2]), int(info_l[3]), float(info_l[4]) , float(info_l[5]), float(info_l[6]) , float(info_l[7])
 
             
             bell = BoundingEllipse(x,y, w,h, self)
@@ -659,6 +659,8 @@ class RetCom(QtWidgets.QMainWindow):
             bell.fontSize = size
             bell.font.setFamily(family)
             bell.displayTextItem.setFont(bell.font)
+            bell.color = QtGui.QColor(color)
+            bell.displayTextItem.setDefaultTextColor(bell.color)
             bell.alignContents()
             self.bells.append(bell)
             self.scene.addItem(bell)
@@ -717,7 +719,7 @@ class RetCom(QtWidgets.QMainWindow):
     def exportTXTEll(self, path):
         txtell_l = []
         for bell in self.bells:
-            info = '::||::'.join([bell.displayText, str(bell.fontSize), str(bell.font.family()), str(round(bell.sceneX)), str(round(bell.sceneY)), str(round(bell.currentW)), str(round(bell.currentH))])
+            info = '::||::'.join([bell.displayText, str(bell.fontSize), str(bell.font.family()), str(bell.color.rgb()), str(round(bell.sceneX)), str(round(bell.sceneY)), str(round(bell.currentW)), str(round(bell.currentH))])
             txtell_l.append(info)
         
         txtell = '::|--|::'.join(txtell_l)
@@ -2170,7 +2172,8 @@ class BoundingEllipse(QtWidgets.QGraphicsEllipseItem):
         self.text = None
         self._fontSize = 25
         self.displayTextItem = QtWidgets.QGraphicsTextItem('', self)
-        # self.displayTextItem.setPen
+        self.color = QtCore.Qt.black
+        self.displayTextItem.setDefaultTextColor(self.color)
         self.displayTextItem.setPos(self.sceneX, self.sceneY)
         self.displayTextItem.setTextWidth(self.boundingRect().width())
         self.displayText = ''
@@ -2282,6 +2285,10 @@ class BoundingEllipse(QtWidgets.QGraphicsEllipseItem):
         changeFontFamilyAction.setStatusTip('Change font family')
         changeFontFamilyAction.triggered.connect(self.changeFontFamilyEvent)
 
+        changeFontColorAction = QtWidgets.QAction(f'Change font color', self.parent)
+        changeFontColorAction.setStatusTip('Change font color')
+        changeFontColorAction.triggered.connect(self.changeFontColorEvent)
+
         capitalizeAction = QtWidgets.QAction(f'Capitalize text', self.parent)
         capitalizeAction.setStatusTip('Capitalize text')
         capitalizeAction.triggered.connect(self.capitalizeEvent)
@@ -2289,6 +2296,7 @@ class BoundingEllipse(QtWidgets.QGraphicsEllipseItem):
         menu.addAction(changeTextAction)
         menu.addAction(changeFontSizeAction)
         menu.addAction(changeFontFamilyAction)
+        menu.addAction(changeFontColorAction)
         menu.addAction(capitalizeAction)
         menu.exec_(event.screenPos())
 
@@ -2311,6 +2319,13 @@ class BoundingEllipse(QtWidgets.QGraphicsEllipseItem):
         if family:
             self.font.setFamily(family)
             self.displayTextItem.setFont(self.font)
+            self.alignContents()
+
+    def changeFontColorEvent(self):
+        color = QtWidgets.QColorDialog.getColor(self.color, title='Choose font color')
+        if color:
+            self.color = color
+            self.displayTextItem.setDefaultTextColor(self.color)
             self.alignContents()
 
     def capitalizeEvent(self):
