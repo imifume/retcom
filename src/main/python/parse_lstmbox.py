@@ -33,8 +33,6 @@ class LSTMBox(object):
                 if idx != 0:
                     if val != '':
                         box_parsed[-1].append(int(val))
-                    else:
-                        pass
                 else:
                     box_parsed[-1].append(val)
 
