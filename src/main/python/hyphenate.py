@@ -61,14 +61,13 @@ class Hyphenator(object):
             for i in range(len(work)):
                 t = self.tree
                 for c in work[i:]:
-                    if c in t:
-                        t = t[c]
-                        if None in t:
-                            p = t[None]
-                            for j in range(len(p)):
-                                points[i+j] = max(points[i+j], p[j])
-                    else:
+                    if c not in t:
                         break
+                    t = t[c]
+                    if None in t:
+                        p = t[None]
+                        for j in range(len(p)):
+                            points[i+j] = max(points[i+j], p[j])                        
             # No hyphens in the first two chars or the last two.
             points[1] = points[2] = points[-2] = points[-3] = 0
 
